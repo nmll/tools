@@ -1,7 +1,8 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 '''
-转换数据集雷达和calib数据
+转换数据集雷达和calib数据和camera,并生成trainval文件标签
+
 '''
 
 
@@ -52,37 +53,58 @@ for i in range(21):
         #     #n+=random.randint(1, 6)  # 依次读取每行
         n+= 1
 """
-####### move training calib
-outpath = os.path.join(path,'object_tracking/training/calib')
+# ####### move training calib
+# outpath = os.path.join(path,'object_tracking/training/calib')
+# for i in range(21):
+#     count = 0
+#     n = 000000
+#     for root, dirs, files in os.walk(path + '/object/training/velodyne/%s' % trackdirid[i]):  # 遍历统计
+#         for each in files:
+#             count += 1  # 统计文件夹下文件个数
+#     while n < count:
+#         new_file_name = r'%s/%s-%s.txt' % (outpath,trackdirid[i],"{:06d}".format(n))  # 文件新名字
+#         origin_dir = os.path.join(path, 'object/training/calib')
+#         #origin_dir=path+'object/training/velodyne/%s/%s' % trackdirid[i],"{:06d}".format(n)
+#         origin_path = r'%s/%s.txt' % (origin_dir,trackdirid[i])  # 原始文件完整目录
+#         shutil.copyfile(origin_path, new_file_name)
+#         #     fo.write('%6d\n'%n)
+#         #     #n+=random.randint(1, 6)  # 依次读取每行
+#         n+= 1
+
+# ####### move testing calib
+# outpath = os.path.join(path, 'object_tracking/testing/calib')
+# for i in range(29):
+#     count = 0
+#     n=000000
+#     for root, dirs, files in os.walk(path+'/object/testing/velodyne/%s'%trackdirid[i]):  # 遍历统计
+#         for each in files:
+#             count += 1  # 统计文件夹下文件个数
+#     while n < count:
+#         origin_dir = os.path.join(path, 'object/testing/calib')
+#         origin_path = r'%s/%s.txt' % (origin_dir,trackdirid[i])  # 原始文件完整目录
+#         new_file_name = r'%s/%s-%s.txt' % (outpath,trackdirid[i],"{:06d}".format(n))  # 文件新名字
+#         shutil.copyfile(origin_path, new_file_name)
+#     #     fo.write('%6d\n'%n)
+#     #     #n+=random.randint(1, 6)  # 依次读取每行
+#         n+=1
+####### move training camera
+fo = open('./trainval.txt', 'a')
+outpath = os.path.join(path,'object_tracking/training/image_2')
 for i in range(21):
     count = 0
     n = 000000
-    for root, dirs, files in os.walk(path + '/object/training/velodyne/%s' % trackdirid[i]):  # 遍历统计
+    for root, dirs, files in os.walk(path + '/object/training/image_02/%s' % trackdirid[i]):  # 遍历统计
         for each in files:
             count += 1  # 统计文件夹下文件个数
     while n < count:
-        new_file_name = r'%s/%s-%s.txt' % (outpath,trackdirid[i],"{:06d}".format(n))  # 文件新名字
-        origin_dir = os.path.join(path, 'object/training/calib')
+        new_file_name = r'%s/%s-%s.png' % (outpath,trackdirid[i],"{:06d}".format(n))  # 文件新名字
+        origin_dir = os.path.join(path, 'object/training/image_02')
         #origin_dir=path+'object/training/velodyne/%s/%s' % trackdirid[i],"{:06d}".format(n)
-        origin_path = r'%s/%s.txt' % (origin_dir,trackdirid[i])  # 原始文件完整目录
+        origin_path = r'%s/%s/%s.png' % (origin_dir,trackdirid[i],"{:06d}".format(n))  # 原始文件完整目录
         shutil.copyfile(origin_path, new_file_name)
+
+        fo.write('%s-%s\n' % (trackdirid[i],"{:06d}".format(n)))
         #     fo.write('%6d\n'%n)
         #     #n+=random.randint(1, 6)  # 依次读取每行
         n+= 1
 
-####### move testing calib
-outpath = os.path.join(path, 'object_tracking/testing/calib')
-for i in range(29):
-    count = 0
-    n=000000
-    for root, dirs, files in os.walk(path+'/object/testing/velodyne/%s'%trackdirid[i]):  # 遍历统计
-        for each in files:
-            count += 1  # 统计文件夹下文件个数
-    while n < count:
-        origin_dir = os.path.join(path, 'object/testing/calib')
-        origin_path = r'%s/%s.txt' % (origin_dir,trackdirid[i])  # 原始文件完整目录
-        new_file_name = r'%s/%s-%s.txt' % (outpath,trackdirid[i],"{:06d}".format(n))  # 文件新名字
-        shutil.copyfile(origin_path, new_file_name)
-    #     fo.write('%6d\n'%n)
-    #     #n+=random.randint(1, 6)  # 依次读取每行
-        n+=1

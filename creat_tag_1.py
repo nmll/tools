@@ -9,6 +9,10 @@ import linecache
 #<strong><span style="font-size:14px;">
 
 
+'''
+python2 creat_tag_1.py
+
+'''
 
 # 无重复生成一定范围内指定数目的随机数利用Python生成一定范围内指定数目的无重复随机数：
 #mi为下限，ma为上限，num为数目，输出为num个数的列表

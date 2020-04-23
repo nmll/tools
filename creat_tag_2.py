@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 '''
-
+python2
 从已生成的train。txt文件里取相对的标签生成val.tt文件
 '''
 
