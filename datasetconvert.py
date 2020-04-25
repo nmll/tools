@@ -19,7 +19,7 @@ trackdatasetid=['0000.txt','0001.txt','0002.txt','0003.txt','0004.txt','0005.txt
                 '0021.txt','0022.txt','0023.txt','0024.txt','0025.txt','0026.txt','0027.txt','0028.txt',]
 
 path = os.getcwd()    #获取当前路径
-path='D:/xunleixiazai/' #windows 下
+path='D:/xunleixiazai/' #windows 下  need to be modified to your path
 os.makedirs(path+'/object_tracking/testing/velodyne')
 os.makedirs(path+'/object_tracking/training/velodyne')
 os.makedirs(path+'/object_tracking/testing/image_2')
@@ -114,7 +114,7 @@ for i in range(21):
 logging.info('the last group convert %d training camera' % count)
 
 
-####### move training calib
+####### move training calib  !!!!!!!!!!!!!calib的需要验证，可能有问题
 outpath = os.path.join(path,'object_tracking/training/calib')
 for i in range(21):
     count = 0
@@ -129,8 +129,9 @@ for i in range(21):
         origin_path = r'%s/%s.txt' % (origin_dir,trackdirid[i])  # 原始文件完整目录
         shutil.copyfile(origin_path, new_file_name)
 
-        with open(new_file_name) as f:
+        with open(new_file_name,'r') as f:
             aa = f.readlines()
+            f.close()
 
         for i,data in enumerate(aa):
             if i==4:
@@ -147,6 +148,8 @@ for i in range(21):
         #     fo.write('%6d\n'%n)
         #     #n+=random.randint(1, 6)  # 依次读取每行
         n+= 1
+
+
 logging.info('the last group convert %d training calib' % count)
 ####### move testing calib
 outpath = os.path.join(path, 'object_tracking/testing/calib')
@@ -162,9 +165,9 @@ for i in range(29):
         new_file_name = r'%s/%s-%s.txt' % (outpath,trackdirid[i],"{:06d}".format(n))  # 文件新名字
         shutil.copyfile(origin_path, new_file_name)#复制文件
 
-        with open(new_file_name) as f:  #change the row 456 to detection calib format
+        with open(new_file_name,'r') as f:  #change the row 456 to detection calib format
             aa = f.readlines()
-
+            f.close()
         for i,data in enumerate(aa):
             if i==4:
                 aa[4]=data.replace('R_rect','R0_rect:')
