@@ -48,8 +48,16 @@ for i in range(29):
     #     #n+=random.randint(1, 6)  # 依次读取每行
         n+=1
 logging.info('the last group convert %d testing velodyne' % count)
+
 ####### move training lidar
 outpath = os.path.join(path,'object_tracking/training/velodyne')
+#补充原始文件缺少的帧
+origin_dir = os.path.join(path, 'object/training/velodyne')
+shutil.copyfile(origin_dir+r'/0001/000176.bin', origin_dir+r'/0001/000177.bin')
+shutil.copyfile(origin_dir+r'/0001/000176.bin', origin_dir+r'/0001/000178.bin')
+shutil.copyfile(origin_dir+r'/0001/000181.bin', origin_dir+r'/0001/000180.bin')
+shutil.copyfile(origin_dir+r'/0001/000181.bin', origin_dir+r'/0001/000179.bin')
+
 for i in range(21):
     count = 0
     n = 000000
@@ -65,11 +73,7 @@ for i in range(21):
         #     fo.write('%6d\n'%n)
         #     #n+=random.randint(1, 6)  # 依次读取每行
         n+= 1
-# #补充缺少的帧
-# shutil.copyfile(outpath+r'/0001-000176.bin', outpath+r'/0001-000177.bin')
-# shutil.copyfile(outpath+r'/0001-000176.bin', outpath+r'/0001-000178.bin')
-# shutil.copyfile(outpath+r'/0001-000181.bin', outpath+r'/0001-000180.bin')
-# shutil.copyfile(outpath+r'/0001-000181.bin', outpath+r'/0001-000179.bin')
+
 logging.info('the last group convert %d training velodyne' % count)
 
 ####### move testing cmera
@@ -254,4 +258,53 @@ for i in range(21):
         #     #n+=random.randint(1, 6)  # 依次读取每行
         n+= 1
 logging.info('the last group convert %d training label' % count)
+
+
+####2020.5.5加入对修改后的label文件做处理的过程：补充无标签的帧用dontcare，且将dontcare都放到最后行，根据deetection格式
+
+labelpath = os.path.join(path,'object_tracking/training/label_2')  # 文件夹目录
+files = os.listdir(labelpath)  # 得到文件夹下的所有文件名称
+s = []
+for file in files:  # 遍历文件夹
+
+    if not os.path.isdir(file):  # 判断是否是文件夹，不是文件夹才打开
+
+        f = open(labelpath + "/" + file);  # 打开文件
+
+        iter_f = iter(f);  # 创建迭代器
+        # name=file.split('-')
+        # if len(f.readlines()) >0:
+        #      pass
+        # else:
+        #      #f = open(path + "/" + file,'a')
+        #      print(file)
+        #      #f.write('DontCare -1 -1 -10.000000 1217.700000 137.630000 1242.000000 225.790000 -1000.000000 -1000.000000 -1000.000000 -10.000000 -1.000000 -1.000000 -1.000000')
+        #      #f.write('DontCare -1 -1 -10.000000 1179.900000 181.690000 1212.900000 200.130000 -1000.000000 -1000.000000 -1000.000000 -10.000000 -1.000000 -1.000000 -1.000000')
+        name = file.split('-')
+        if len(f.readlines()) > 0:
+            normal = []
+            dontcare = []
+
+            for line in iter_f:  # 遍历文件，一行行遍历，读取文本
+                juge = line.split(' ')
+                if juge[0] == 'DontCare':
+                    dontcare.append(line)
+                else:
+                    normal.append(line)
+            f.close()
+            f = open(labelpath + "/" + file, 'w');
+
+            f.writelines(normal)  # 直接将list写入txt文件里
+            f.writelines(dontcare)
+            f.close()
+        else:
+            f = open(labelpath + "/" + file,'a')
+
+            f.write('DontCare -1 -1 -10.000000 1217.700000 137.630000 1242.000000 225.790000 -1000.000000 -1000.000000 -1000.000000 -10.000000 -1.000000 -1.000000 -1.000000')
+            logging.info('write dontcare in  file %s ' % file)
+            f.close()
+
+    # s.append(str) #每个文件的文本存到list中
+
+# print(s) #打印结果
 
