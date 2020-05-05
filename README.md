@@ -18,7 +18,7 @@ Then you can have what you want in file 'object_tracking'.
 
 ## news
 2020.5.5.
-now the code can fix the /training/label_2 file which do not mark,i mark it dontcare,and move all the file dontcare to the last
+now the code can fix the /training/label_2 file which do not mark,i mark it dontcare,and move all the file dontcare to the last,fix the calibfile bug.
 
 2020.4
 can convert trackingdataset normally,calibfile may be some problems
