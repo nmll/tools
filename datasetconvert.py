@@ -229,15 +229,17 @@ for i in range(21):
     origin_path = r'%s/%s.txt' % (origin_dir, trackdirid[i])  # 原始文件完整目录
     aa=[]
     with open(origin_path) as f:
-        aa=f.readlines()
+        #aa=f.readlines()
+        aa=f.read().splitlines()#读取字符串时不读\n
         for aa in aa:
+            aa.strip('\n')#去掉结尾换行符
             dd=aa.split(' ')
             if int(dd[3])==1:
                 dd[3]=str(float(int(dd[3])/2))
             elif int(dd[3])==2:
                 dd[3]=str(float(int(dd[3])/2))
 #20.6.19在最后两列加入了帧号，trackid
-            detections_by_frame[int(dd[0])].append('%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s'%(dd[2],dd[3],dd[4],dd[5],dd[6],dd[7],dd[8],dd[9],dd[10],dd[11],dd[12],dd[13],dd[14],dd[15],dd[16],dd[0],dd[1]))
+            detections_by_frame[int(dd[0])].append('%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s\n'%(dd[2],dd[3],dd[4],dd[5],dd[6],dd[7],dd[8],dd[9],dd[10],dd[11],dd[12],dd[13],dd[14],dd[15],dd[16],dd[0],dd[1]))
         '''
         f_csv = csv.reader(f, delimiter=' ')
         for row in f_csv:
@@ -334,7 +336,7 @@ for file in files:  # 遍历文件夹
         else:
             f = open(labelpath + "/" + file,'a')
 
-            f.write('DontCare -1 -1 -10.000000 1217.700000 137.630000 1242.000000 225.790000 -1000.000000 -1000.000000 -1000.000000 -10.000000 -1.000000 -1.000000 -1.000000')
+            f.write('DontCare -1 -1 -10.000000 1217.700000 137.630000 1242.000000 225.790000 -1000.000000 -1000.000000 -1000.000000 -10.000000 -1.000000 -1.000000 -1.000000 -1 -1')
             logging.info('write dontcare in  file %s ' % file)
             f.close()
 
