@@ -4,11 +4,12 @@ very useful tools in dadily(incuding kitti)
 datasetconvert.py can convert kittidataset tracking to kittidataset detection format
 
 ## usage
-put the datasetconvert.py in the same context with object dir 
+ 
 on windows,you need to change this code row 22;
 on linux,you need to annotating code row 22.
 
-first you need to donwload kitti tracking dataset,and change the filename 'object_tracking' to 'object'
+first you need to donwload kitti tracking dataset,and change the filename 'object_tracking' to 'object',put the datasetconvert.py in the same context with object dir
+
 Then you can
 
 ```
