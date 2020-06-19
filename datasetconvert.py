@@ -236,8 +236,8 @@ for i in range(21):
                 dd[3]=str(float(int(dd[3])/2))
             elif int(dd[3])==2:
                 dd[3]=str(float(int(dd[3])/2))
-
-            detections_by_frame[int(dd[0])].append('%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s'%(dd[2],dd[3],dd[4],dd[5],dd[6],dd[7],dd[8],dd[9],dd[10],dd[11],dd[12],dd[13],dd[14],dd[15],dd[16]))
+#20.6.19在最后两列加入了帧号，trackid
+            detections_by_frame[int(dd[0])].append('%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s'%(dd[2],dd[3],dd[4],dd[5],dd[6],dd[7],dd[8],dd[9],dd[10],dd[11],dd[12],dd[13],dd[14],dd[15],dd[16],dd[0],dd[1]))
         '''
         f_csv = csv.reader(f, delimiter=' ')
         for row in f_csv:
@@ -340,5 +340,7 @@ for file in files:  # 遍历文件夹
 
     # s.append(str) #每个文件的文本存到list中
 
-# print(s) #打印结果
+
+#print(s) #打印结果
+print('dataset convert done! Thank you!') #打印结果
 
