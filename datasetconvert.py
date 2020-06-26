@@ -239,7 +239,7 @@ for i in range(21):
             elif int(dd[3])==2:
                 dd[3]=str(float(int(dd[3])/2))
 #20.6.19在最后两列加入了帧号，trackid
-            detections_by_frame[int(dd[0])].append('%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s\n'%(dd[2],dd[3],dd[4],dd[5],dd[6],dd[7],dd[8],dd[9],dd[10],dd[11],dd[12],dd[13],dd[14],dd[15],dd[16],dd[0],dd[1]))
+            detections_by_frame[int(dd[0])].append('%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s\n'%(dd[2],dd[3],dd[4],dd[5][:-3],dd[6][:-3],dd[7][:-3],dd[8][:-3],dd[9][:-3],dd[10][:-3],dd[11][:-3],dd[12][:-3],dd[13][:-3],dd[14][:-3],dd[15][:-3],dd[16][:-3],dd[0],dd[1]))#截取字符串小数点后三位
         '''
         f_csv = csv.reader(f, delimiter=' ')
         for row in f_csv:
