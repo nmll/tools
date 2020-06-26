@@ -164,7 +164,7 @@ logging.info('the last group convert %d testing calib' % count)
 ######fix the calibfile
 calibpath = os.path.join(path,'object_tracking/training/calib')  # 文件夹目录
 files = os.listdir(calibpath)  # 得到文件夹下的所有文件名称
-print('traingingcalib number is %d'%len(files))
+print('fix traingingcalib number is %d'%len(files))
 
 for file in files:  # 遍历文件夹
 
@@ -192,7 +192,7 @@ for file in files:  # 遍历文件夹
 
 calibpath = os.path.join(path,'object_tracking/testing/calib')  # 文件夹目录
 files = os.listdir(calibpath)  # 得到文件夹下的所有文件名称
-print('testingcalib number is %d'%len(files))
+print('fix testingcalib number is %d'%len(files))
 
 for file in files:  # 遍历文件夹
 
@@ -239,7 +239,7 @@ for i in range(21):
             elif int(dd[3])==2:
                 dd[3]=str(float(int(dd[3])/2))
 #20.6.19在最后两列加入了帧号，trackid
-            detections_by_frame[int(dd[0])].append('%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s\n'%(dd[2],dd[3],dd[4],dd[5][:-3],dd[6][:-3],dd[7][:-3],dd[8][:-3],dd[9][:-3],dd[10][:-3],dd[11][:-3],dd[12][:-3],dd[13][:-3],dd[14][:-3],dd[15][:-3],dd[16][:-3],dd[0],dd[1]))#截取字符串小数点后三位
+            detections_by_frame[int(dd[0])].append('%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s\n'%(dd[2],dd[3],dd[4],dd[5][:-4],dd[6][:-4],dd[7][:-4],dd[8][:-4],dd[9][:-4],dd[10][:-4],dd[11][:-4],dd[12][:-4],dd[13][:-4],dd[14][:-4],dd[15][:-4],dd[16][:-4],dd[0],dd[1]))#截取字符串小数点后2位
         '''
         f_csv = csv.reader(f, delimiter=' ')
         for row in f_csv:
@@ -287,6 +287,7 @@ for i in range(21):
         #fo.write('%s-%s\n' % (trackdirid[i],"{:06d}".format(n)))
         #     fo.write('%6d\n'%n)
         #     #n+=random.randint(1, 6)  # 依次读取每行
+        fo.close()
         n+= 1
 logging.info('the last group convert %d training label' % count)
 
@@ -312,7 +313,7 @@ for file in files:  # 遍历文件夹
         #      #f.write('DontCare -1 -1 -10.000000 1217.700000 137.630000 1242.000000 225.790000 -1000.000000 -1000.000000 -1000.000000 -10.000000 -1.000000 -1.000000 -1.000000')
         #      #f.write('DontCare -1 -1 -10.000000 1179.900000 181.690000 1212.900000 200.130000 -1000.000000 -1000.000000 -1000.000000 -10.000000 -1.000000 -1.000000 -1.000000')
         name = file.split('-')
-        ###读取移动dontcare
+        ###读取移动dontcare 并把dontcare放到最后
         normal = []
         dontcare = []
 
