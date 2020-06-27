@@ -23,7 +23,7 @@ add the framid trackid into trackinglabel in the last two columns,if you want to
 kittitracking  visualization,you need to use commit 105588c60045ad8a2ae75fff80dbf7ec7cfd2129
 
 2020.5.5.
-now the code can fix the /training/label_2 file which do not mark,i mark it dontcare,and move all the file dontcare to the last,fix the calibfile bug.you need to move the dontcare all to last in 0020 group last frame. 
+now the code can fix the /training/label_2 file which do not mark,i mark it dontcare,and move all the file dontcare to the last,fix the calibfile bug. 
 
 2020.4
 can convert trackingdataset normally,calibfile may be some problems
